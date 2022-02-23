@@ -1,0 +1,73 @@
+<app-Header></app-Header>
+<div class="container-fluid p-4">
+  <div class="row">
+    <div class="col-md-3 px-5 mb-4">
+      <div class="row">
+        <div class="col-md-4 PrincipalColorTheme text-center shadow-sm" style="height: 100px;">
+          <h3 style="line-height: 100px; font-size: 1.5rem; color:white;">999</h3>
+        </div>
+        <div class="col-md-8 bg-white text-center shadow-sm" style="height: 100px;">
+          <h3 style="line-height: 100px;">Classes Available</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 px-5 mb-4">
+      <div class="row">
+        <div class="col-md-4 PrincipalColorTheme text-center shadow-sm" style="height: 100px;">
+          <h3 style="line-height: 100px; font-size: 1.5rem; color:white;">999</h3>
+        </div>
+        <div class="col-md-8 bg-white text-center shadow-sm" style="height: 100px;">
+          <h3 style="line-height: 100px;">Earnings last month</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 px-5 mb-4">
+      <div class="row">
+        <div class="col-md-4 PrincipalColorTheme text-center shadow-sm" style="height: 100px;">
+          <h3 style="line-height: 100px; font-size: 1.5rem; color:white;">9999</h3>
+        </div>
+        <div class="col-md-8 bg-white text-center shadow-sm" style="height: 100px;">
+          <h3 style="line-height: 100px;">Total Students</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 px-5 mb-4">
+      <div class="row">
+        <div class="col-md-4 PrincipalColorTheme text-center shadow-sm" style="height: 100px;">
+          <h3 style="line-height: 100px; font-size: 1.5rem; color:white;">999</h3>
+        </div>
+        <div class="col-md-8 bg-white text-center shadow-sm" style="height: 100px;">
+          <h3 style="line-height: 100px;">Instructors</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-6">
+      <div>
+        <h3>Latest system news</h3>
+      </div>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 shadow-sm">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="message">
+          <th mat-header-cell *matHeaderCellDef> Message </th>
+          <td mat-cell *matCellDef="let element"> {{element.message}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</div>

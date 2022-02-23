@@ -1,0 +1,494 @@
+<app-Header></app-Header>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 p-4">
+      <button mat-raised-button color="primary" class="mb-3" (click)="openModal(CreateClass)">Create Class</button>
+      <button mat-raised-button color="primary" class="mb-3 mx-3" (click)="openModal(CreateClassMultipleMorning)">Create Multiple Class (Morning)</button>
+      <button mat-raised-button color="primary" class="mb-3" (click)="openModal(CreateClassMultipleEvening)">Create Multiple Class (Evening)</button>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+          <!-- ID Column -->
+          <ng-container matColumnDef="Class ID">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Class ID </th>
+            <td mat-cell *matCellDef="let row"> {{row.idClass}} </td>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="Class Name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Class Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.name}}% </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="Location">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+            <td mat-cell *matCellDef="let row"> {{row.Location}} </td>
+          </ng-container>
+
+          <!-- Fruit Column -->
+          <ng-container matColumnDef="Date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+            <td mat-cell *matCellDef="let row"> {{row.Date}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Start Date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </th>
+            <td mat-cell *matCellDef="let row"> {{row.StartDate}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Students Enrolled">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Students Enrolled </th>
+            <td mat-cell *matCellDef="let row"> {{row.StudentsEnrolled}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+            <td mat-cell *matCellDef="let row"> jeje</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #CreateClass>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Create new class</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Class Name</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Class Location</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Schedule</mat-label>
+            <input matInput [matDatepicker]="picker1">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Max Students</mat-label>
+            <input matInput #input maxlength="10" placeholder="">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Start Time</mat-label>
+          <timepicker [(ngModel)]="mytime"></timepicker>
+        </div>
+        <div class="col-md-6">
+            <mat-label>End Time</mat-label>
+            <timepicker [(ngModel)]="mytime2"></timepicker>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Register Cost</mat-label>
+            <input matInput #input maxlength="10" placeholder="">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Instructor</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Note</mat-label>
+            <textarea matInput placeholder=""></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-radio-group name="flavors">
+            <mat-radio-button value="chocolate">Enabled</mat-radio-button>
+          </mat-radio-group><br><br>
+          <mat-radio-group name="flavors">
+            <mat-radio-button value="chocolate">Spanish Class</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Class Key</mat-label>
+            <input matInput #input maxlength="10" placeholder="Ex. LOTR">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 text-center">
+          <hr>
+          <button mat-raised-button color="primary">Save</button>
+          <button mat-raised-button color="primary" class="mx-5"></button>
+          <button mat-raised-button color="link">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #CreateClassMultipleMorning>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Create new class</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Class Name</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Class Location</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Schedule</mat-label>
+            <input matInput [matDatepicker]="picker1">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Max Students</mat-label>
+            <input matInput #input maxlength="10" placeholder="">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <span>First Class</span>
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Start Time</mat-label>
+          <timepicker [(ngModel)]="MorningTimes.Time1"></timepicker>
+        </div>
+        <div class="col-md-6">
+            <mat-label>End Time</mat-label>
+            <timepicker [(ngModel)]="MorningTimes.Time2"></timepicker>
+        </div>
+        <div class="col-md-12">
+          <span>Second Class</span>
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Start Time</mat-label>
+          <timepicker [(ngModel)]="MorningTimes.Time3"></timepicker>
+        </div>
+        <div class="col-md-6">
+            <mat-label>End Time</mat-label>
+            <timepicker [(ngModel)]="MorningTimes.Time4"></timepicker>
+        </div>
+        <div class="col-md-12">
+          <span>Third Class</span>
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Start Time</mat-label>
+          <timepicker [(ngModel)]="MorningTimes.Time5"></timepicker>
+        </div>
+        <div class="col-md-6">
+            <mat-label>End Time</mat-label>
+            <timepicker [(ngModel)]="MorningTimes.Time6"></timepicker>
+        </div>
+        <div class="col-md-12">
+          <span>Fourth Class</span>
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Start Time</mat-label>
+          <timepicker [(ngModel)]="MorningTimes.Time7"></timepicker>
+        </div>
+        <div class="col-md-6">
+            <mat-label>End Time</mat-label>
+            <timepicker [(ngModel)]="MorningTimes.Time8"></timepicker>
+        </div>
+        <div class="col-md-12">
+          <span>Fifth Class</span>
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Start Time</mat-label>
+          <timepicker [(ngModel)]="MorningTimes.Time9"></timepicker>
+        </div>
+        <div class="col-md-6">
+            <mat-label>End Time</mat-label>
+            <timepicker [(ngModel)]="MorningTimes.Time10"></timepicker>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Register Cost</mat-label>
+            <input matInput #input maxlength="10" placeholder="">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Instructor</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Note</mat-label>
+            <textarea matInput placeholder=""></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-radio-group name="flavors">
+            <mat-radio-button value="chocolate">Enabled</mat-radio-button>
+          </mat-radio-group><br><br>
+          <mat-radio-group name="flavors">
+            <mat-radio-button value="chocolate">Spanish Class</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Class Key</mat-label>
+            <input matInput #input maxlength="10" placeholder="Ex. LOTR">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 text-center">
+          <hr>
+          <button mat-raised-button color="primary">Save</button>
+          <button mat-raised-button color="primary" class="mx-5"></button>
+          <button mat-raised-button color="link">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #CreateClassMultipleEvening>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Create new class</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Class Name</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Select Class Location</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Schedule</mat-label>
+            <input matInput [matDatepicker]="picker1">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Max Students</mat-label>
+            <input matInput #input maxlength="10" placeholder="">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <span>First Class</span>
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Start Time</mat-label>
+          <timepicker [(ngModel)]="EveningTimes.Time1"></timepicker>
+        </div>
+        <div class="col-md-6">
+            <mat-label>End Time</mat-label>
+            <timepicker [(ngModel)]="EveningTimes.Time2"></timepicker>
+        </div>
+        <div class="col-md-12">
+          <span>Second Class</span>
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Start Time</mat-label>
+          <timepicker [(ngModel)]="EveningTimes.Time3"></timepicker>
+        </div>
+        <div class="col-md-6">
+            <mat-label>End Time</mat-label>
+            <timepicker [(ngModel)]="EveningTimes.Time4"></timepicker>
+        </div>
+        <div class="col-md-12">
+          <span>Third Class</span>
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Start Time</mat-label>
+          <timepicker [(ngModel)]="EveningTimes.Time5"></timepicker>
+        </div>
+        <div class="col-md-6">
+            <mat-label>End Time</mat-label>
+            <timepicker [(ngModel)]="EveningTimes.Time6"></timepicker>
+        </div>
+        <div class="col-md-12">
+          <span>Fourth Class</span>
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Start Time</mat-label>
+          <timepicker [(ngModel)]="EveningTimes.Time7"></timepicker>
+        </div>
+        <div class="col-md-6">
+            <mat-label>End Time</mat-label>
+            <timepicker [(ngModel)]="EveningTimes.Time8"></timepicker>
+        </div>
+        <div class="col-md-12">
+          <span>Fifth Class</span>
+          <hr>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Start Time</mat-label>
+          <timepicker [(ngModel)]="EveningTimes.Time9"></timepicker>
+        </div>
+        <div class="col-md-6">
+            <mat-label>End Time</mat-label>
+            <timepicker [(ngModel)]="EveningTimes.Time10"></timepicker>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Register Cost</mat-label>
+            <input matInput #input maxlength="10" placeholder="">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="fill">
+            <mat-label>Instructor</mat-label>
+            <mat-select>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Note</mat-label>
+            <textarea matInput placeholder=""></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-radio-group name="flavors">
+            <mat-radio-button value="chocolate">Enabled</mat-radio-button>
+          </mat-radio-group><br><br>
+          <mat-radio-group name="flavors">
+            <mat-radio-button value="chocolate">Spanish Class</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+            <mat-label>Class Key</mat-label>
+            <input matInput #input maxlength="10" placeholder="Ex. LOTR">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 text-center">
+          <hr>
+          <button mat-raised-button color="primary">Save</button>
+          <button mat-raised-button color="primary" class="mx-5"></button>
+          <button mat-raised-button color="link">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

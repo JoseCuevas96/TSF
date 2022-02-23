@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 my-4 shadow-lg text-center mx-5" style="max-width: 400px !important; ">
+      <div class="row text-center">
+        <div class="col-md-12 text-center text-white" style="background-color: #4e7aa0 !important; padding:0px !important;"> 
+          <h2 class="m-3">Dashboard Login</h2>
+        </div>
+        <div class="col-md-12 text-center p-5" style="background-color: white !important;">
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Enter your email</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'">
+              <button mat-icon-button matSuffix [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>account_circle</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Enter your password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" class="mb-2" routerLink="/dashboard">Log in</button><br>
+          <a mat-raised-button href="https://www.google.com/" target="_blank">Forgot your password?</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>

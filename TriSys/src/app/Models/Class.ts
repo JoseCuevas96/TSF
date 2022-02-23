@@ -1,0 +1,29 @@
+export class ClassView {
+    IdClass: number = 0;
+    Name: string = '';
+    Location: string = '';
+    Schedule: string = '';
+    MaxStudents: string = '';
+    StartDate: string = '';
+    EndDate: string = '';
+    RegisterCost: string = '';
+    Note: string = '';
+    Active: boolean = false;
+    Spanish: boolean = false;
+    Instructor: string = '';
+    Private: boolean = false;
+}
+export class ClassInsert {
+    Name: string = '';
+    Location: string = '';
+    Schedule: string = '';
+    MaxStudents: string = '';
+    StartDate: string = '';
+    EndDate: string = '';
+    RegisterCost: string = '';
+    Note: string = '';
+    Active: boolean = false;
+    Spanish: boolean = false;
+    Instructor: string = '';
+    Private: boolean = false;
+}

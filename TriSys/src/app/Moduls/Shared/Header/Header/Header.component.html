@@ -1,0 +1,19 @@
+<mat-toolbar class="bg-white shadow-sm">
+  <h3 class="" style="font-size: 1.5em; font: 400 16px/28px Roboto, 'Helvetica Neue', sans-serif;">TraiSys - CPR & First Aid Training Institute</h3>
+  <button mat-button class="mx-3" routerLink="/dashboard">Home</button>
+  <button mat-button [matMenuTriggerFor]="animals" class="mx-3">Classes</button>
+  <mat-menu #animals="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="Classes">Classes</button>
+    <button mat-menu-item>Invoices</button>
+  </mat-menu>
+
+  <mat-menu #Classes="matMenu">
+    <button mat-menu-item routerLink="/classes">Classes</button>
+    <button mat-menu-item routerLink="/types">Class Types</button>
+    <button mat-menu-item routerLink="/locations">Class Locations</button>
+    <button mat-menu-item>Students enrolled</button>
+    <button mat-menu-item>Instructors</button>
+  </mat-menu>
+  <span class="example-spacer"></span>
+  <mat-icon routerLink="/">input</mat-icon>
+</mat-toolbar>

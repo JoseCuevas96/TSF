@@ -1,0 +1,6 @@
+2022-02-21T09:47:11.5418408-07:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-02-21T09:47:11.5542167-07:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-02-21T09:47:11.5567354-07:00  [INF] Content root path: "D:\HancarSoft\CLIENTES\INES\TraiSys\Api\WebApi" (b5d60022)
+2022-02-21T09:59:01.3790565-07:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-02-21T09:59:01.3890901-07:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-02-21T09:59:01.3919684-07:00  [INF] Content root path: "D:\HancarSoft\CLIENTES\INES\TraiSys\Api\WebApi" (b5d60022)
