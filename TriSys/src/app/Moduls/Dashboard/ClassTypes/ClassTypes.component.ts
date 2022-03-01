@@ -6,8 +6,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ServiceService } from 'src/app/service.service';
 
 import { classTypes } from 'src/app/Models/classTypes';
-import swal from'sweetalert2';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-ClassTypes',
   templateUrl: './ClassTypes.component.html',
@@ -67,7 +66,7 @@ export class ClassTypesComponent implements AfterViewInit {
       }
     }, (error) => {
       // alert(error.error);
-      swal.fire(
+      Swal.fire(
         'Atention',
         'There was a problem fetching the requested information. Error: ' + error.error,
         'info'
@@ -86,19 +85,19 @@ export class ClassTypesComponent implements AfterViewInit {
         this.Servicios.insertClassType(this.objClassType).subscribe((data: any) => {
           if (data.success === "Ok") {
             // console.log("Success!");
-            swal.fire('Complete', 'Class Type Saved!', 'success');
+            Swal.fire('Complete', 'Class type Saved!', 'success');
             this.objClassType.IdType = 0;
             this.objClassType.TypeName = "";
             this.GetTypes(this.objFiltros);
             this.modalRef?.hide();
           }
           else {
-            swal.fire('Information', 'There was a problem registering class type!', 'info');
+            Swal.fire('Information', 'There was a problem registering class type!', 'info');
             // console.log(data);
           }
         }, (error) => {
           // console.log(error.error);
-          swal.fire('Error', error.error, 'error');
+          Swal.fire('Error', error.error, 'error');
         });
       }
       else {
@@ -107,29 +106,29 @@ export class ClassTypesComponent implements AfterViewInit {
           this.Servicios.updateClassType(this.objClassType).subscribe((data: any) => {
             if (data.success === "Ok") {
               // console.log("Success!");
-              swal.fire('Complete', 'Class Type Modified!', 'success');
+              Swal.fire('Complete', 'Class type modified!', 'success');
               this.objClassType.IdType = 0;
               this.objClassType.TypeName = "";
               this.GetTypes(this.objFiltros);
               this.modalRef?.hide();
             }
             else {
-              swal.fire('Information', 'There was a problem modifying class type!', 'info');
+              Swal.fire('Information', 'There was a problem modifying class type!', 'info');
               // console.log("There was a problem modifying class type");
             }
           }, (error) => {
             // console.log(error.error);
-            swal.fire('Error', error.error, 'error');
+            Swal.fire('Error', error.error, 'error');
           });
         }
         else {
-          swal.fire('Information', "Please, Select a Class Type", 'info');
+          Swal.fire('Information', "Please, select a class Type", 'info');
           // console.log("Please, Select a Class Type");
         }
       }
     }
     else {
-      swal.fire('Information', "Please, Capture Class Type Name", 'info');
+      Swal.fire('Information', "Please, capture class type name", 'info');
       // console.log("Please, Capture Class Type Name");
     }
   }
@@ -147,34 +146,33 @@ export class ClassTypesComponent implements AfterViewInit {
     this.objClassType.IdType = row.idType;
     this.objClassType.TypeName = row.typeName;
 
-    swal.fire({
-      title: '¿Are you sure you want to delete the class type "' + row.typeName + '"?',
+    Swal.fire({
+      title: 'Are you sure you want to delete the class type "' + row.typeName + '"?',
       text: '',
       icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: "#28A745",
-      cancelButtonColor: "#DC3545",
-      cancelButtonText: '<i class="fa fa-times"></i> Cancelar',
-      confirmButtonText: '<i class="fa fa-check"></i> Aceptar'
+      showCancelButton: true
     }).then((result) => {
       if (result.value) {
         this.Servicios.deleteClassType(this.objClassType).subscribe((data: any) => {
           if (data.success === "Ok") {
             // console.log("Success!");
-            swal.fire('Complete', 'Class Type Deleted!', 'success');
+            Swal.fire('Complete', 'Class type deleted!', 'success');
             this.objClassType.IdType = 0;
             this.objClassType.TypeName = "";
             this.GetTypes(this.objFiltros);
           }
           else {
-            swal.fire('Information', 'There was a problem deleted class type!', 'info');
+            Swal.fire('Information', 'There was a problem deleting class type!', 'info');
             // console.log("There was a problem modifying class type");
           }
         }, (error) => {
           // console.log(error.error);
-          swal.fire('Error', 'There was a problem deleted class type! Error: ' + error.error, 'error');
+          Swal.fire('Error', 'There was a problem deleting class type! Error: ' + error.error, 'error');
         });
       }
     });
+  }
+  closeModal(modalId?: number){
+    this.modalService.hide(modalId);
   }
 }
