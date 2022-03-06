@@ -1,4 +1,123 @@
 <app-Header></app-Header>
-<p>
-  ClassLocations works!
-</p>
+<div class="container-fluid">
+  <br>
+  <button mat-raised-button color="primary" (click)="displayDialog(CreateLocation)">
+    <mat-icon>add</mat-icon>
+    Create Location
+  </button>
+  <br>
+  <br>
+  <mat-form-field class="w-100">
+    <mat-label>Filter</mat-label>
+    <input matInput type="text" (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+
+  <table mat-table matSort [dataSource]="dataSource" class="w-100 table-striped">
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+        </mat-checkbox>
+      </td>
+      <ng-container matColumnDef="idLocation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">ID</th>
+        <td mat-cell *matCellDef="let row">{{row.idLocation}} </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Name</th>
+        <td mat-cell *matCellDef="let row"> {{row.idLocation}} </td>
+      </ng-container>
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+        <td mat-cell *matCellDef="let row"> {{row.idLocation}} </td>
+      </ng-container>
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+        <td mat-cell *matCellDef="let row"> {{row.idLocation}} </td>
+      </ng-container>
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
+        <td mat-cell *matCellDef="let row"> {{row.idLocation}} </td>
+      </ng-container>
+      <ng-container matColumnDef="zip">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ZIP</th>
+        <td mat-cell *matCellDef="let row"> {{row.idLocation}} </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-raised-button matTooltip="Edit Location">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-raised-button color="warn" matTooltip="Delete Location">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center" colspan="8">No data matching the filter</td>
+      </tr>
+    </ng-container>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+</div>
+
+<ng-template #CreateLocation>
+  <div class="modal-header">
+    <h2 class="modal-title pull-left">Create new location</h2>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="location" (ngSubmit)="createLocation()">
+      <div class="row">
+        <mat-form-field class="col">
+          <mat-label>Location Name</mat-label>
+          <input matInput type="text" formControlName="Name">
+        </mat-form-field>
+        <mat-form-field class="col">
+          <mat-label>Address</mat-label>
+          <input matInput type="text" formControlName="Address">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col">
+          <mat-label>State</mat-label>
+          <input matInput type="text" formControlName="State">
+        </mat-form-field>
+        <mat-form-field class="col">
+          <mat-label>City</mat-label>
+          <input matInput type="text" formControlName="City">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col">
+          <mat-label>ZIP</mat-label>
+          <input matInput type="text" formControlName="ZIP">
+        </mat-form-field>
+        <mat-form-field class="col">
+          <mat-label></mat-label>
+          <input matInput type="text">
+        </mat-form-field>
+      </div>
+      <div class="text-center">
+        <button mat-raised-button color="primary">
+          Save
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button mat-raised-button (click)="modalRef?.hide()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>

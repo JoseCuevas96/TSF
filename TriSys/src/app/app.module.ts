@@ -32,6 +32,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import {  HttpClientModule } from '@angular/common/http';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -68,7 +70,9 @@ import {  HttpClientModule } from '@angular/common/http';
     MatRadioModule,
     NgxMaterialTimepickerModule,
     TimepickerModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    MatTooltipModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
