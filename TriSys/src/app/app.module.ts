@@ -23,17 +23,17 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table'
 import { ClassesComponent } from './Moduls/Dashboard/Classes/Classes.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule} from '@angular/material/checkbox';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import {MatSelectModule} from '@angular/material/select';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatSelectModule} from '@angular/material/select';
+import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatRadioModule} from '@angular/material/radio';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { MatRadioModule } from '@angular/material/radio';
+import { NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-import {  HttpClientModule } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({

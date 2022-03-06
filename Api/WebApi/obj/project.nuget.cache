@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "O6xhA7DT/J7E0CrEl6uvqE4EZ+knRexEzwj5mMyn2ZpVt5hUy9sSnnhYE8nSHbHuBZEvTFviGZjXoLS9ADYNog==",
+  "dgSpecHash": "yV2o71q4cK7hEc9AHs5mj/9EuVaJv1oo9pVh6yKvVxWooYENXECwGipre5kJRYYT2TBY72m7BNr6H8sjuK0f4g==",
   "success": true,
-  "projectFilePath": "D:\\HancarSoft\\CLIENTES\\INES\\TraiSys\\Api\\WebApi\\WebApi.csproj",
+  "projectFilePath": "D:\\HancarSoft\\CLIENTES\\INES\\TSF\\TSF\\Api\\WebApi\\WebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hanca\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\hanca\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
