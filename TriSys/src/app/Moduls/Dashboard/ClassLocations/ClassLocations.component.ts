@@ -31,19 +31,19 @@ export class ClassLocationsComponent implements OnInit, AfterViewInit, OnDestroy
   classLocations: Location[] = [];
   ELEMENT_DATA: Location[] = this.classLocations;
   type: string = "";
+  title: string = "";
 
   constructor(
     private modalService: BsModalService,
     private Servicios: ServiceService
   ) {
-    this.dataSource = new MatTableDataSource();
     this.location = new FormGroup({
       IdLocation: new FormControl(),
-      Name: new FormControl('', Validators.required),
-      Address: new FormControl('', Validators.required),
-      State: new FormControl(''),
-      City: new FormControl(''),
-      ZIP: new FormControl('')
+      Name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      Address: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      State: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      City: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      ZIP: new FormControl('', [Validators.required, Validators.maxLength(50)])
     });
   }
 
@@ -63,9 +63,6 @@ export class ClassLocationsComponent implements OnInit, AfterViewInit, OnDestroy
   private loadLocations(): void {
     this.locationSubscription = this.Servicios.getClassLocations().subscribe(res => {
       this.dataSource.data = res.message;
-      // this.classLocations = res.message;
-      // this.ELEMENT_DATA = this.classLocations;
-      // this.dataSource =  new MatTableDataSource(this.ELEMENT_DATA);
     }, (err) => console.error(err));
   }
 
@@ -114,7 +111,6 @@ export class ClassLocationsComponent implements OnInit, AfterViewInit, OnDestroy
         this.modalRef?.hide();
       } else {
         Swal.fire('Information', 'There was a problem editing class location!', 'info');
-        // console.log(data);
       }
     },
     (err) => console.error(err));
@@ -151,9 +147,11 @@ export class ClassLocationsComponent implements OnInit, AfterViewInit, OnDestroy
     if (location) {
       this.fillForm(location);
       this.type = "edit";
+      this.title = "Edit class location";
       this.modalRef = this.modalService.show(template);
     } else {
       this.type = "create";
+      this.title = "Create new class location";
       this.modalRef = this.modalService.show(template);
     }
   }

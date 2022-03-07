@@ -12,7 +12,7 @@ namespace WebApi.Business
     {
         public ClassValidations Validate = new ClassValidations();
 
-        public List<ClassLocation> GetClassLocations(string IdLocation, string Name, string Address, string City, string State, string ZIP)
+        public List<ClassLocation> GetClassLocations(string IdLocation)
         {
             using (var context = new ApplicationDBContext())
             {

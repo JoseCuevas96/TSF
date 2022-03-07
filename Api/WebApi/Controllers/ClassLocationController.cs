@@ -30,10 +30,10 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Route("getClassLocations")]
-        public async Task<response> getClassLocations(string IdLocation, string Name, string Address, string City, string State, string ZIP)
+        public async Task<response> getClassLocations(string IdLocation)
         {
             response response = new response();
-            List<ClassLocation> locations = _mapper.Map<List<ClassLocation>>(ClassLocationBusiness.GetClassLocations(IdLocation, Name, Address, City, State, ZIP));
+            List<ClassLocation> locations = _mapper.Map<List<ClassLocation>>(ClassLocationBusiness.GetClassLocations(IdLocation));
 
             response.Success = "OK";
             response.statusCode = HttpStatusCode.OK;
