@@ -27,35 +27,36 @@
       </td>
       <ng-container matColumnDef="idLocation">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">ID</th>
-        <td mat-cell *matCellDef="let row">{{row.idLocation}} </td>
+        <td mat-cell *matCellDef="let row" class="text-center">{{row.idLocation}} </td>
       </ng-container>
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center">Name</th>
-        <td mat-cell *matCellDef="let row"> {{row.idLocation}} </td>
+        <td mat-cell *matCellDef="let row" class="text-center"> {{row.name}} </td>
       </ng-container>
       <ng-container matColumnDef="address">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
-        <td mat-cell *matCellDef="let row"> {{row.idLocation}} </td>
+        <td mat-cell *matCellDef="let row" class="text-center"> {{row.address}} </td>
       </ng-container>
       <ng-container matColumnDef="city">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
-        <td mat-cell *matCellDef="let row"> {{row.idLocation}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
+        <td mat-cell *matCellDef="let row" class="text-center"> {{row.city}} </td>
       </ng-container>
       <ng-container matColumnDef="state">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
-        <td mat-cell *matCellDef="let row"> {{row.idLocation}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+        <td mat-cell *matCellDef="let row" class="text-center"> {{row.state}} </td>
       </ng-container>
       <ng-container matColumnDef="zip">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ZIP</th>
-        <td mat-cell *matCellDef="let row"> {{row.idLocation}} </td>
+        <td mat-cell *matCellDef="let row" class="text-center"> {{row.zip}} </td>
       </ng-container>
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
-        <td mat-cell *matCellDef="let row">
-          <button mat-raised-button matTooltip="Edit Location">
+        <th mat-header-cell *matHeaderCellDef class="text-center">Actions</th>
+        <td mat-cell *matCellDef="let row" class="text-center">
+          <button mat-raised-button matTooltip="Edit Location" (click)="displayDialog(CreateLocation, row)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-raised-button color="warn" matTooltip="Delete Location">
+          &nbsp;
+          <button mat-raised-button color="warn" matTooltip="Delete Location" (click)="deleteLocation(row)">
             <mat-icon>edit</mat-icon>
           </button>
         </td>
@@ -110,11 +111,11 @@
         </mat-form-field>
       </div>
       <div class="text-center">
-        <button mat-raised-button color="primary">
+        <button mat-raised-button color="primary" type="submit">
           Save
         </button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button mat-raised-button (click)="modalRef?.hide()">
+        <button mat-raised-button (click)="closeForm()" type="button">
           Cancel
         </button>
       </div>

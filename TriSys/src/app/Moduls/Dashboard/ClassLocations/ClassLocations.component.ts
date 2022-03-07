@@ -8,6 +8,7 @@ import { Location } from '../../../Models/Location.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ClassLocations',
@@ -16,7 +17,7 @@ import { Subscription } from 'rxjs';
 })
 export class ClassLocationsComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  dataSource = new MatTableDataSource<Location>();
+  dataSource = new MatTableDataSource<any>();
   selection = new SelectionModel<Location>(true, []);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -26,12 +27,18 @@ export class ClassLocationsComponent implements OnInit, AfterViewInit, OnDestroy
   modalRef?: BsModalRef;
   location: FormGroup;
   locationSubscription!: Subscription;
+  classLocationSub!: Subscription;
+  classLocations: Location[] = [];
+  ELEMENT_DATA: Location[] = this.classLocations;
+  type: string = "";
 
   constructor(
     private modalService: BsModalService,
     private Servicios: ServiceService
   ) {
+    this.dataSource = new MatTableDataSource();
     this.location = new FormGroup({
+      IdLocation: new FormControl(),
       Name: new FormControl('', Validators.required),
       Address: new FormControl('', Validators.required),
       State: new FormControl(''),
@@ -54,32 +61,124 @@ export class ClassLocationsComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   private loadLocations(): void {
-
+    this.locationSubscription = this.Servicios.getClassLocations().subscribe(res => {
+      this.dataSource.data = res.message;
+      // this.classLocations = res.message;
+      // this.ELEMENT_DATA = this.classLocations;
+      // this.dataSource =  new MatTableDataSource(this.ELEMENT_DATA);
+    }, (err) => console.error(err));
   }
 
   public createLocation(): void {
-
+    if (this.type === "create") {
+      this.classLocationSub = this.Servicios.insertClassLocation(this.location.value).subscribe(res => {
+        console.log(res);
+        if (res.success === "Ok") {
+          Swal.fire('Complete', 'Class location Saved!', 'success');
+          this.loadLocations();
+          this.clearForm();
+          this.type = "";
+          this.modalRef?.hide();
+        } else {
+          Swal.fire('Information', 'There was a problem registering class location!', 'info');
+          // console.log(data);
+        }
+      },
+      (err) => console.error(err));
+    }
+    else if (this.type === "edit") {
+      this.classLocationSub = this.Servicios.updateClassLocation(this.location.value).subscribe(res => {
+        console.log(res);
+        if (res.success === "Ok") {
+          Swal.fire('Complete', 'Class location Saved!', 'success');
+          this.loadLocations();
+          this.clearForm();
+          this.type = "";
+          this.modalRef?.hide();
+        } else {
+          Swal.fire('Information', 'There was a problem editing class location!', 'info');
+          // console.log(data);
+        }
+      },
+      (err) => console.error(err));
+    }
   }
 
-  public deleteLocation(element: Location): void {
+  public editLocation(): void {
+    this.classLocationSub = this.Servicios.updateClassLocation(this.location.value).subscribe(res => {
+      console.log(res);
+      if (res.success === "Ok") {
+        Swal.fire('Complete', 'Class location Saved!', 'success');
+        this.loadLocations();
+        this.clearForm();
+        this.modalRef?.hide();
+      } else {
+        Swal.fire('Information', 'There was a problem editing class location!', 'info');
+        // console.log(data);
+      }
+    },
+    (err) => console.error(err));
+  }
 
+  public deleteLocation(element: any): void {
+    Swal.fire({
+      title: 'Are you sure you want to delete the class location "' + element.name + '"?',
+      text: '',
+      icon: 'question',
+      showCancelButton: true
+    }).then((result) => {
+      if (result.value) {
+        this.Servicios.deleteClassLocation(element).subscribe(res => {
+          if (res.success === "Ok") {
+            Swal.fire('Complete', 'Class location deleted!', 'success');
+            this.loadLocations();
+            this.clearForm();
+            this.modalRef?.hide();
+          }
+          else {
+            Swal.fire('Information', 'There was a problem deleting class location!', 'info');
+            // console.log("There was a problem modifying class type");
+          }
+        }, (error) => {
+          // console.log(error.error);
+          Swal.fire('Error', 'There was a problem deleting class type! Error: ' + error.error, 'error');
+        });
+      }
+    });
   }
 
   public displayDialog(template: TemplateRef<any>, location?: Location): void {
     if (location) {
       this.fillForm(location);
+      this.type = "edit";
       this.modalRef = this.modalService.show(template);
     } else {
+      this.type = "create";
       this.modalRef = this.modalService.show(template);
     }
   }
 
-  private fillForm(element: Location): void {
-    this.location.controls['Name'].setValue(element.Name);
-    this.location.controls['Address'].setValue(element.Address);
-    this.location.controls['State'].setValue(element.State);
-    this.location.controls['City'].setValue(element.City);
-    this.location.controls['ZIP'].setValue(element.ZIP);
+  private fillForm(element: any): void {
+    this.location.controls['IdLocation'].setValue(element.idLocation);
+    this.location.controls['Name'].setValue(element.name);
+    this.location.controls['Address'].setValue(element.address);
+    this.location.controls['State'].setValue(element.state);
+    this.location.controls['City'].setValue(element.city);
+    this.location.controls['ZIP'].setValue(element.zip);
+  }
+
+  private clearForm(): void {
+    this.location.controls['IdLocation'].setValue("");
+    this.location.controls['Name'].setValue("");
+    this.location.controls['Address'].setValue("");
+    this.location.controls['State'].setValue("");
+    this.location.controls['City'].setValue("");
+    this.location.controls['ZIP'].setValue("");
+  }
+
+  closeForm(): void {
+    this.clearForm();
+    this.modalRef?.hide();
   }
 
   applyFilter(event: Event) {
