@@ -67,37 +67,39 @@ export class ClassLocationsComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   public createLocation(): void {
-    if (this.type === "create") {
-      this.classLocationSub = this.Servicios.insertClassLocation(this.location.value).subscribe(res => {
-        console.log(res);
-        if (res.success === "Ok") {
-          Swal.fire('Complete', 'Class location Saved!', 'success');
-          this.loadLocations();
-          this.clearForm();
-          this.type = "";
-          this.modalRef?.hide();
-        } else {
-          Swal.fire('Information', 'There was a problem registering class location!', 'info');
-          // console.log(data);
-        }
-      },
-      (err) => console.error(err));
-    }
-    else if (this.type === "edit") {
-      this.classLocationSub = this.Servicios.updateClassLocation(this.location.value).subscribe(res => {
-        console.log(res);
-        if (res.success === "Ok") {
-          Swal.fire('Complete', 'Class location Saved!', 'success');
-          this.loadLocations();
-          this.clearForm();
-          this.type = "";
-          this.modalRef?.hide();
-        } else {
-          Swal.fire('Information', 'There was a problem editing class location!', 'info');
-          // console.log(data);
-        }
-      },
-      (err) => console.error(err));
+    if (this.location.valid) {
+      if (this.type === "create") {
+        this.classLocationSub = this.Servicios.insertClassLocation(this.location.value).subscribe(res => {
+          console.log(res);
+          if (res.success === "Ok") {
+            Swal.fire('Complete', 'Class location Saved!', 'success');
+            this.loadLocations();
+            this.clearForm();
+            this.type = "";
+            this.modalRef?.hide();
+          } else {
+            Swal.fire('Information', 'There was a problem registering class location!', 'info');
+            // console.log(data);
+          }
+        },
+        (err) => console.error(err));
+      }
+      else if (this.type === "edit") {
+        this.classLocationSub = this.Servicios.updateClassLocation(this.location.value).subscribe(res => {
+          console.log(res);
+          if (res.success === "Ok") {
+            Swal.fire('Complete', 'Class location Saved!', 'success');
+            this.loadLocations();
+            this.clearForm();
+            this.type = "";
+            this.modalRef?.hide();
+          } else {
+            Swal.fire('Information', 'There was a problem editing class location!', 'info');
+            // console.log(data);
+          }
+        },
+        (err) => console.error(err));
+      }
     }
   }
 
