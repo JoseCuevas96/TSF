@@ -6,5 +6,12 @@ export const environment = {
     insertClassLocation: "insertClassLocation",
     updateClassLocation: "updateClassLocation",
     deleteClassLocation: "deleteClassLocation"
+  },
+  apiInstructor: 'https://localhost:44376/api/Instructor/',
+  routesInstructor: {
+    getInstructors: "getInstructors",
+    insertInstructor: "insertInstructor",
+    updateInstructor: "updateInstructor",
+    deleteInstructor: "deleteInstructor"
   }
 };

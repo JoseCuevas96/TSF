@@ -9,7 +9,8 @@ namespace WebApi.Models
     public class Instructor
     {
         [Key]
-        public int IdInstructor { get; set; }
+        public int Id { get; set; }
+        public string IdInstructor { get; set; }
         public string Name { get; set; }
     }
 }

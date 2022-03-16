@@ -34,6 +34,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
+import { InstructorsComponent } from './Moduls/Dashboard/Instructors/Instructors.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { HttpClientModule } from '@angular/common/http';
     DashboardComponent,
     ClassesComponent,
     ClassTypesComponent,
-    ClassLocationsComponent
+    ClassLocationsComponent,
+    InstructorsComponent
   ],
   imports: [
     BrowserModule,

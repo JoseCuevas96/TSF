@@ -10,8 +10,8 @@ using WebApi.Data;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20220223000702_ClassLocation, ClassType Added")]
-    partial class ClassLocationClassTypeAdded
+    [Migration("20220311213906_IdInstructor a String")]
+    partial class IdInstructoraString
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,12 +64,12 @@ namespace WebApi.Migrations
                     b.Property<string>("StartTime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("instructorIdInstructor")
+                    b.Property<int?>("instructorId")
                         .HasColumnType("int");
 
                     b.HasKey("IdClass");
 
-                    b.HasIndex("instructorIdInstructor");
+                    b.HasIndex("instructorId");
 
                     b.ToTable("Classes");
                 });
@@ -118,15 +118,18 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Models.Instructor", b =>
                 {
-                    b.Property<int>("IdInstructor")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("IdInstructor")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdInstructor");
+                    b.HasKey("Id");
 
                     b.ToTable("Instructors");
                 });
@@ -135,7 +138,7 @@ namespace WebApi.Migrations
                 {
                     b.HasOne("WebApi.Models.Instructor", "instructor")
                         .WithMany()
-                        .HasForeignKey("instructorIdInstructor");
+                        .HasForeignKey("instructorId");
 
                     b.Navigation("instructor");
                 });
