@@ -10,6 +10,13 @@
             "name": "Chrome",
             "url": "http://localhost:4200/",
             "webRoot": "${workspaceFolder}"
-        }
+        },
+        {
+          "type": "chrome",
+          "request": "launch",
+          "name": "Classes",
+          "url": "http://localhost:4200/classes",
+          "webRoot": "${workspaceFolder}"
+      }
     ]
 }

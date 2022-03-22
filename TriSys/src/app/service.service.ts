@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { classTypes } from './Models/classTypes';
 import { ResponseAPI } from './Models/Response.model';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +13,70 @@ export class ServiceService {
 
   private host: string;
   private routes: any;
+  private routesClass: any;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private datePipe: DatePipe) {
     this.host = environment.apiClass;
     this.routes = environment.routes;
+    this.routesClass = environment.routesClasses;
   }
 
   getClasses() {
     const url = `${environment.apiClass}GetClasses?`;
     return this.httpClient.get(url);
+  }
+
+  insertClass(c: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.host}${this.routesClass.insertClass}`,
+      {
+        IdClass: c.IdClass === '' ? 0 : Number(c.IdClass),
+        IdClassName: Number(c.IdClassName),
+        IdClassLocation: Number(c.IdClassLocation),
+        Schedule: new Date(c.Schedule),
+        MaxStudents: c.MaxStudents,
+        StartTime: this.datePipe.transform(c.StartTime, 'HH:mm'),
+        FinishTime: this.datePipe.transform(c.FinishTime, 'HH:mm'),
+        RegisterCost: c.RegisterCost,
+        Enabled: c.Enabled,
+        Spanish: c.Spanish,
+        instructorId: Number(c.instructorId),
+        Note: c.Note,
+        SearchKey: c.SearchKey,
+        CreateDate: new Date(),
+      }
+    );
+  }
+
+  updateClass(c: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.host}${this.routesClass.updateClass}`,
+      {
+        IdClass: c.IdClass === '' ? 0 : Number(c.IdClass),
+        IdClassName: Number(c.IdClassName),
+        IdClassLocation: Number(c.IdClassLocation),
+        Schedule: new Date(c.Schedule),
+        MaxStudents: c.MaxStudents,
+        StartTime: this.datePipe.transform(c.StartTime, 'HH:mm'),
+        FinishTime: this.datePipe.transform(c.FinishTime, 'HH:mm'),
+        RegisterCost: c.RegisterCost,
+        Enabled: c.Enabled,
+        Spanish: c.Spanish,
+        instructorId: Number(c.instructorId),
+        Note: c.Note,
+        SearchKey: c.SearchKey,
+        CreateDate: new Date(),
+      }
+    );
+  }
+
+  deleteClass(c: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.host}${this.routesClass.deleteClass}`,
+      {
+        IdClass: c.idClass === '' ? 0 : Number(c.idClass)
+      }
+    );
   }
 
   getClassTypes(obj: classTypes) {

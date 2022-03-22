@@ -13,5 +13,11 @@ export const environment = {
     insertInstructor: "insertInstructor",
     updateInstructor: "updateInstructor",
     deleteInstructor: "deleteInstructor"
+  },
+  routesClasses: {
+    getClasses: "getClasses",
+    insertClass: "insertClass",
+    updateClass: "updateClass",
+    deleteClass: "deleteClass"
   }
 };
