@@ -43,5 +43,47 @@ namespace WebApi.Controllers
             return await Task.FromResult(response);
 
         }
+
+        [HttpPost]
+        [Route("insertClass")]
+        public async Task<response> insertClass(Class classes)
+        {
+            response response = new response();
+            ClassBusiness.insertClasses(classes);
+
+            response.Success = "Ok";
+            response.statusCode = HttpStatusCode.OK;
+            response.Message = "Ok";
+
+            return await Task.FromResult(response);
+        }
+
+        [HttpPost]
+        [Route("updateClass")]
+        public async Task<response> updateClass(Class classes)
+        {
+            response response = new response();
+            ClassBusiness.updateClass(classes);
+
+            response.Success = "Ok";
+            response.statusCode = HttpStatusCode.OK;
+            response.Message = "Ok";
+
+            return await Task.FromResult(response);
+        }
+
+        [HttpPost]
+        [Route("deleteClass")]
+        public async Task<response> deleteClass(Class classes)
+        {
+            response response = new response();
+            ClassBusiness.deleteClass(classes);
+
+            response.Success = "Ok";
+            response.statusCode = HttpStatusCode.OK;
+            response.Message = "Ok";
+
+            return await Task.FromResult(response);
+        }
     }
 }

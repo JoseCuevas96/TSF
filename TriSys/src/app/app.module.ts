@@ -35,7 +35,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
 import { InstructorsComponent } from './Moduls/Dashboard/Instructors/Instructors.component';
-
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -76,7 +76,7 @@ import { InstructorsComponent } from './Moduls/Dashboard/Instructors/Instructors
     MatTooltipModule,
     MatSortModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

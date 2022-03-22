@@ -14,8 +14,10 @@ namespace WebApi.DTOs
         public string ClassLocation { get; set; }
         public DateTime Schedule { get; set; }
         public int MaxStudents { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan FinishTime { get; set; }
+        //public TimeSpan StartTime { get; set; }
+        //public TimeSpan FinishTime { get; set; }
+        public string StartTime { get; set; }
+        public string FinishTime { get; set; }
         public float RegisterCost { get; set; }
         public bool Enabled { get; set; }
         public bool Spanish { get; set; }
